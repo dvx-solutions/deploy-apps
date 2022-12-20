@@ -7,9 +7,10 @@ import styles from "./page.module.css";
 
 interface Props {
   apps: AppsType;
+  name?: string;
 }
 
-export function FormApps({ apps }: Props) {
+export function FormApps({ apps, name = 'TODOS' }: Props) {
   const [selected, setSelected] = useState<Array<string>>([]);
 
   const onCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,7 +49,7 @@ export function FormApps({ apps }: Props) {
           }}
           type="checkbox"
         />
-        Todos
+        {name}
       </label>
 
       {apps.map((app) => {
