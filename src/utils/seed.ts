@@ -1,8 +1,6 @@
-import { Data as AppsType } from "../pages/api/apps";
-import { FormApps } from "./formapps";
-import styles from "./page.module.css";
+import { prisma } from "@/utils/prisma";
 
-const fetchApps = async (): Promise<AppsType> => [
+const dev = [
   {
     name: "Educação",
     url: "https://api.vercel.com/v1/integrations/deploy/prj_y5FuDNzCY0OsTmI42c68Bgnbmxp6/HJiKZbPbeW",
@@ -20,7 +18,7 @@ const fetchApps = async (): Promise<AppsType> => [
     url: "https://api.vercel.com/v1/integrations/deploy/prj_08FnUnF2HkICrfyNJ24Puh7hyp7m/IHucQJ01dN",
   },
   {
-    name: "Ordem de Serviço",
+    name: "PCP",
     url: "https://api.vercel.com/v1/integrations/deploy/prj_UymkcGEbKZuTAw84PuyE9uJBThKp/LFUwlJNhs4",
   },
   {
@@ -28,7 +26,7 @@ const fetchApps = async (): Promise<AppsType> => [
     url: "https://api.vercel.com/v1/integrations/deploy/prj_Y5eFEJz8nmOU624SUjO58FcuwRm9/oN8zNbu0uw",
   },
   {
-    name: "Apps",
+    name: "Portal",
     url: "https://api.vercel.com/v1/integrations/deploy/prj_AJfTTnY20QvPSAUyj6YiYQMhydFJ/fabA2krX9A",
   },
   {
@@ -37,7 +35,7 @@ const fetchApps = async (): Promise<AppsType> => [
   },
 ];
 
-const fetchAppsHmg = async (): Promise<AppsType> => [
+const hmg = [
   {
     name: "Educação",
     url: "https://api.vercel.com/v1/integrations/deploy/prj_y5FuDNzCY0OsTmI42c68Bgnbmxp6/v9WQGNG0WU",
@@ -55,7 +53,7 @@ const fetchAppsHmg = async (): Promise<AppsType> => [
     url: "https://api.vercel.com/v1/integrations/deploy/prj_08FnUnF2HkICrfyNJ24Puh7hyp7m/VtyR972zSl",
   },
   {
-    name: "Ordem de Serviço",
+    name: "PCP",
     url: "https://api.vercel.com/v1/integrations/deploy/prj_UymkcGEbKZuTAw84PuyE9uJBThKp/4k2AOZB4Sc",
   },
   {
@@ -63,7 +61,7 @@ const fetchAppsHmg = async (): Promise<AppsType> => [
     url: "https://api.vercel.com/v1/integrations/deploy/prj_Y5eFEJz8nmOU624SUjO58FcuwRm9/izFY5XmqYw",
   },
   {
-    name: "Apps",
+    name: "Portal",
     url: "https://api.vercel.com/v1/integrations/deploy/prj_AJfTTnY20QvPSAUyj6YiYQMhydFJ/yqKzUADTmv",
   },
   {
@@ -71,7 +69,8 @@ const fetchAppsHmg = async (): Promise<AppsType> => [
     url: "https://api.vercel.com/v1/integrations/deploy/prj_whLEApJFXdMAKfe4yLqMsPJt4agF/Uz2qClHdcQ",
   },
 ];
-const fetchAppsProd = async (): Promise<AppsType> => [
+
+const prod = [
   {
     name: "Educação",
     url: "https://api.vercel.com/v1/integrations/deploy/prj_y5FuDNzCY0OsTmI42c68Bgnbmxp6/loyDPlg6km",
@@ -89,7 +88,7 @@ const fetchAppsProd = async (): Promise<AppsType> => [
     url: "https://api.vercel.com/v1/integrations/deploy/prj_08FnUnF2HkICrfyNJ24Puh7hyp7m/ZJFWupoT7j",
   },
   {
-    name: "Ordem de Serviço",
+    name: "PCP",
     url: "https://api.vercel.com/v1/integrations/deploy/prj_UymkcGEbKZuTAw84PuyE9uJBThKp/R2kAqi6b8Y",
   },
   {
@@ -97,7 +96,7 @@ const fetchAppsProd = async (): Promise<AppsType> => [
     url: "https://api.vercel.com/v1/integrations/deploy/prj_Y5eFEJz8nmOU624SUjO58FcuwRm9/jva0VxArK3",
   },
   {
-    name: "Apps",
+    name: "Portal",
     url: "https://api.vercel.com/v1/integrations/deploy/prj_AJfTTnY20QvPSAUyj6YiYQMhydFJ/pJDesBE1xl",
   },
   {
@@ -106,15 +105,30 @@ const fetchAppsProd = async (): Promise<AppsType> => [
   },
 ];
 
-export default async function Home() {
-  const apps = await fetchApps();
-  const appsHmg = await fetchAppsHmg();
-  const appsProd = await fetchAppsProd();
-  return (
-    <div className={styles.container}>
-      <FormApps apps={apps} name="Todos Dev" />
-      <FormApps apps={appsHmg} name="Todos Homolog" />
-      <FormApps apps={appsProd} name="Todos Prod" />
-    </div>
-  );
+export async function main() {
+  await prisma.application.deleteMany();
+
+  await prisma.application.createMany({
+    data: dev.map((item) => ({
+      environment: "DEV",
+      name: item.name,
+      url: item.url,
+    })),
+  });
+
+  await prisma.application.createMany({
+    data: hmg.map((item) => ({
+      environment: "HMG",
+      name: item.name,
+      url: item.url,
+    })),
+  });
+
+  await prisma.application.createMany({
+    data: prod.map((item) => ({
+      environment: "PROD",
+      name: item.name,
+      url: item.url,
+    })),
+  });
 }
