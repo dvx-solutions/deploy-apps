@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Application, Environment } from "@prisma/client";
 import { DoubleArrowUpIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
+import { Separator } from "@/components/ui/separator";
 
 export function AppsForm({
   apps,
@@ -46,6 +47,12 @@ export function AppsForm({
 
   return (
     <form onSubmit={handleDeployRequest} className="grid text-lg gap-4">
+      <h2 className="uppercase text-center text-primary font-semibold text-xl">
+        {enviroment}
+      </h2>
+
+      <Separator />
+
       <label className="flex items-center justify-start gap-2 select-none">
         <input
           name={`all-${enviroment}`}
@@ -55,8 +62,6 @@ export function AppsForm({
         />
         Todos
       </label>
-
-      <div />
 
       {apps
         .sort((a, b) => a.name.localeCompare(b.name))
