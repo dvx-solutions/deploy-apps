@@ -138,7 +138,12 @@ export function AddApplicationPopover() {
               })}
             </fieldset>
 
-            <Button variant={"secondary"}>Create</Button>
+            <Button
+              variant={"secondary"}
+              disabled={form.formState.isSubmitting}
+            >
+              {form.formState.isSubmitting ? "Creating" : "Create"}
+            </Button>
           </form>
         </Form>
       </PopoverContent>
