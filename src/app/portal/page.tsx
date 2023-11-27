@@ -4,6 +4,8 @@ import { AddApplicationPortalPopover } from "@/components/add-application-portal
 import { PortalApps } from "@/components/portal-apps";
 import { ReorderApplicationsWrappper } from "@/components/reorder-applications-wrapper";
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const fallback = <span>Loading...</span>;
   return (
