@@ -1,5 +1,6 @@
-import { AppsForm } from "@/components/apps-form";
 import { Environment } from "@prisma/client";
+
+import { AppsForm } from "@/components/apps-form";
 import { prisma } from "@/utils/prisma";
 
 export async function EnvironmentApps({

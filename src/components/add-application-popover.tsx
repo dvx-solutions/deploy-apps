@@ -1,20 +1,13 @@
 "use client";
 
+import { createApplication } from "@/app/actions";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { prisma } from "@/utils/prisma";
+import { Environment } from "@prisma/client";
 import { PlusIcon } from "@radix-ui/react-icons";
+import { Path, useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { Environment } from "@prisma/client";
-import { Path, useForm } from "react-hook-form";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -23,6 +16,13 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import {
   Select,
   SelectContent,
@@ -30,7 +30,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { createApplication } from "@/app/actions";
+import { prisma } from "@/utils/prisma";
 
 const FormSchema = z.object({
   environment: z.nativeEnum(Environment),

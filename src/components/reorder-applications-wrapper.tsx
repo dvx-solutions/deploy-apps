@@ -1,10 +1,8 @@
 import { ReorderApplicationsDialog } from "@/components/reorder-applications-dialog";
-import { prisma } from "@/utils/prisma";
+import { getPortalApps } from "@/utils/portal-apps";
 
 export async function ReorderApplicationsWrappper() {
-  const data = await prisma.portalApp.findMany({
-    orderBy: { sequence: "asc" },
-  });
+  const data = await getPortalApps();
 
   return <ReorderApplicationsDialog apps={data} />;
 }

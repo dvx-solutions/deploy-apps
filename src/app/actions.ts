@@ -60,3 +60,16 @@ export async function reorderApplications(
     console.log(error);
   }
 }
+
+export async function deletePortalApplication(id: number) {
+  try {
+    await prisma.portalApp.delete({
+      select: { id: true },
+      where: { id },
+    });
+
+    revalidatePath("/portal");
+  } catch (error) {
+    console.error(error);
+  }
+}

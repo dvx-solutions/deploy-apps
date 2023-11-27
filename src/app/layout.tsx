@@ -2,12 +2,11 @@ import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
 import Link from "next/link";
 
-import { ThemeProvider } from "@/components/theme-provider";
+import { Providers } from "@/components/providers";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 
 import "@/main.css";
-import { Providers } from "@/components/providers";
 
 export const fontSans = FontSans({
   subsets: ["latin"],
